@@ -177,7 +177,7 @@ public class Pathfinder {
 	}
         path.add(current);
         maze[current.getLocation().getRow()][current.getLocation().getCol()] = '.';
-	
+
     }
 
     public static void main(String[] args) {
