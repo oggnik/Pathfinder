@@ -94,7 +94,7 @@ public class Pathfinder {
 	    }
 	}
     }
-    /*public boolean isSolvable(Node current) {
+    /*public boolean isSolvable(Node current) {//depth first
         tested.add(current);
 	if (current.isEnd())
 	    return true;
