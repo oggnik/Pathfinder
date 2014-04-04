@@ -11,21 +11,30 @@ public class Pathfinder {
     private int rows;
     private int cols;
     private Node start;
+    private Node end;
+    private ArrayList<Node> path;
     public Pathfinder() {
 	nodes = new ArrayList<Node>();
         tested = new ArrayList<Node>();
+        path = new ArrayList<Node>();
 	boolean done = false;
 	try {
             getMaze();
             done = true;
             getNodes();
             setMoves();
-            boolean solvable = isSolvable(start);
+            boolean solvable = isSolvable();
             System.out.println("Solvable: " + solvable);
             for (int r = 0; r < rows; r++) {
                 for (int c = 0; c < cols; c++)
                     System.out.print(maze[r][c]);
                 System.out.println();
+            }
+            //Print out the nodes of the path in reverse order
+            Node pathNode = end;
+            while (pathNode.getParent() != null) {
+                System.out.println(pathNode);
+                pathNode = pathNode.getParent();
             }
         } catch (Exception e) {
             System.err.println("Error!");
@@ -55,6 +64,7 @@ public class Pathfinder {
 	    for (int c = 0; c < cols; c++) {
 		if (maze[r][c] == 'X') {
 		    Node n = new Node(new Location(r, c), true);
+                    end = n;
 		    nodes.add(n);
 		} else if (maze[r][c] == '.') {
 		    Node n = new Node(new Location(r, c), false);
@@ -116,8 +126,8 @@ public class Pathfinder {
 		addParentsToPath(current);
 		return true;
 	    }
-	    ArrayList<Node> possibleWords = current.getPossibleWords();
-	    for (Node next : possibleWords) {
+	    ArrayList<Node> neighbors = current.getMoves();
+	    for (Node next : neighbors) {
 		if (!tested.contains(next)) {
 		    next.setParent(current);
 		    tested.add(next);
@@ -128,6 +138,14 @@ public class Pathfinder {
 	return false;
     }
 
+    private void addParentsToPath(Node current) {
+	Node parent = current.getParent();
+	path.add(0, current);
+        maze[current.getLocation().getRow()][current.getLocation().getCol()] = '.';
+	if (parent != null) {
+	    addParentsToPath(parent);
+	}
+    }
 
     public static void main(String[] args) {
 	Pathfinder ms = new Pathfinder();

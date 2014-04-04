@@ -6,6 +6,7 @@ import java.util.*;
 public class Node {
     private ArrayList<Node> moves;
     private boolean end;
+    private Node parent;
     private Location myLoc;
     public Node(Location loc, boolean isEnd) {
 	moves = new ArrayList<Node>();
@@ -17,6 +18,15 @@ public class Node {
     }
     public ArrayList<Node> getMoves() {
 	return moves;
+    }
+    public void setParent(Node p) {
+	parent = p;
+    }
+    public Node getParent() {
+	return parent;
+    }
+    public void removeParent() {
+        parent = null;
     }
     public void addMove(Node move) {
 	moves.add(move);
