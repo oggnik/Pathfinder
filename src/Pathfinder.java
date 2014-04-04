@@ -54,7 +54,7 @@ public class Pathfinder {
 	Scanner input = new Scanner(f);
 	rows = Integer.parseInt(input.nextLine());
 	cols = Integer.parseInt(input.nextLine());
-	char[][] m = new char[rows*2][cols*2];
+	char[][] m = new char[rows][cols];
 	System.out.println("Maze entered:");
 	for (int r = 0; r < rows; r++) {
 	    m[r] = input.nextLine().replace(",", "").toCharArray();
@@ -100,6 +100,15 @@ public class Pathfinder {
 			    cur.addMove(n);
 		    }
 		    if (cur.getLocation().getCol() == n.getLocation().getCol()) {
+			if ((cur.getLocation().getRow() + 1 == n.getLocation().getRow()) || (cur.getLocation().getRow() - 1 == n.getLocation().getRow()))
+			    cur.addMove(n);
+		    }
+                    //Diagonals
+                    if (cur.getLocation().getCol() - 1 == n.getLocation().getCol()) {
+			if ((cur.getLocation().getRow() + 1 == n.getLocation().getRow()) || (cur.getLocation().getRow() - 1 == n.getLocation().getRow()))
+			    cur.addMove(n);
+		    }
+                    if (cur.getLocation().getCol() + 1 == n.getLocation().getCol()) {
 			if ((cur.getLocation().getRow() + 1 == n.getLocation().getRow()) || (cur.getLocation().getRow() - 1 == n.getLocation().getRow()))
 			    cur.addMove(n);
 		    }
