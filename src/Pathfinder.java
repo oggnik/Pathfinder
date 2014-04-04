@@ -30,11 +30,9 @@ public class Pathfinder {
                     System.out.print(maze[r][c]);
                 System.out.println();
             }
-            //Print out the nodes of the path in reverse order
-            Node pathNode = end;
-            while (pathNode.getParent() != null) {
-                System.out.println(pathNode);
-                pathNode = pathNode.getParent();
+            //Print out the nodes of the path in order
+            for (Node n : path) {
+                System.out.println(n);
             }
         } catch (Exception e) {
             System.err.println("Error!");
@@ -43,6 +41,11 @@ public class Pathfinder {
 	}
 
     }
+    
+    /**
+     * Get a maze
+     * @throws Exception 
+     */
     public void getMaze() throws Exception {
 	Scanner in = new Scanner(System.in);
 	System.out.print("Enter path to maze file: ");
@@ -51,7 +54,7 @@ public class Pathfinder {
 	Scanner input = new Scanner(f);
 	rows = Integer.parseInt(input.nextLine());
 	cols = Integer.parseInt(input.nextLine());
-	char[][] m = new char[rows*2][cols];
+	char[][] m = new char[rows*2][cols*2];
 	System.out.println("Maze entered:");
 	for (int r = 0; r < rows; r++) {
 	    m[r] = input.nextLine().replace(",", "").toCharArray();
@@ -59,6 +62,13 @@ public class Pathfinder {
 	}
 	maze = m;
     }
+    
+    /**
+     * Convert the 2d array to nodes
+     * . = start
+     * X = end
+     * ' ' = movable position
+     */
     public void getNodes() {
 	for (int r = 0; r < rows; r++) {
 	    for (int c = 0; c < cols; c++) {
@@ -78,6 +88,9 @@ public class Pathfinder {
 	}
     }
     
+    /**
+     * Set the possible moves
+     */
     public void setMoves() {
 	for (Node cur: nodes) {
 	    for (Node n: nodes) {
@@ -113,6 +126,12 @@ public class Pathfinder {
 	}
 	return false;
     }*/
+    
+    /**
+     * Perform a breadth first search to test if the maze is solvable.
+     * This also updates the path if the maze is solvable.
+     * @return 
+     */
     private boolean isSolvable() {//breadth first
 	if (start == null)
 	    return false;
@@ -138,13 +157,18 @@ public class Pathfinder {
 	return false;
     }
 
+    /**
+     * Recursively add the parents of current to the path
+     * @param current 
+     */
     private void addParentsToPath(Node current) {
 	Node parent = current.getParent();
-	path.add(0, current);
-        maze[current.getLocation().getRow()][current.getLocation().getCol()] = '.';
 	if (parent != null) {
 	    addParentsToPath(parent);
 	}
+        path.add(current);
+        maze[current.getLocation().getRow()][current.getLocation().getCol()] = '.';
+	
     }
 
     public static void main(String[] args) {
