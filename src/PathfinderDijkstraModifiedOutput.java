@@ -75,7 +75,9 @@ public class PathfinderDijkstraModifiedOutput {
     public void getNodes() {
 	for (int r = 0; r < rows; r++) {
 	    for (int c = 0; c < cols; c++) {
-		if (maze[r][c] == '3') {
+		/*
+                 * Commented out to allow manual input of start and end coordinates
+                 * if (maze[r][c] == '3') {
 		    Vertex n = new Vertex(new Location(r, c));
                     end = n;
 		    graph.addVertex(n);
@@ -83,12 +85,19 @@ public class PathfinderDijkstraModifiedOutput {
 		    Vertex n = new Vertex(new Location(r, c));
 		    graph.addVertex(n);
 		    start = n;
-		} else if (maze[r][c] == '0') {
+		} else */
+                if (maze[r][c] == '0') {
 		    Vertex n = new Vertex(new Location(r, c));
 		    graph.addVertex(n);
 		}
 	    }
 	}
+        //Get start and end coordinates (they must be 0)
+        Scanner in = new Scanner(System.in);
+        System.out.print("Enter start coordinates in format \"x y\" : ");
+        start = graph.getVertex(new Location(in.nextInt(), in.nextInt()));
+        System.out.print("Enter end coordinates in format \"x y\" : ");
+        end = graph.getVertex(new Location(in.nextInt(), in.nextInt()));
     }
     
     /**
