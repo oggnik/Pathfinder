@@ -12,6 +12,7 @@ public class PathfinderDijkstraModifiedOutput {
     private Vertex start;
     private Vertex end;
     private ArrayList<Vertex> path;
+    private Scanner in;
     public PathfinderDijkstraModifiedOutput() {
         path = new ArrayList<Vertex>();
 	boolean done = false;
@@ -49,7 +50,7 @@ public class PathfinderDijkstraModifiedOutput {
      * @throws Exception 
      */
     public void getMaze() throws Exception {
-	Scanner in = new Scanner(System.in);
+	in = new Scanner(System.in);
 	System.out.print("Enter path to maze file: ");
 	String path = in.nextLine();
 	File f = new File(path);
@@ -93,7 +94,6 @@ public class PathfinderDijkstraModifiedOutput {
 	    }
 	}
         //Get start and end coordinates (they must be 0)
-        Scanner in = new Scanner(System.in);
         System.out.print("Enter start coordinates in format \"x y\" : ");
         start = graph.getVertex(new Location(in.nextInt(), in.nextInt()));
         System.out.print("Enter end coordinates in format \"x y\" : ");
