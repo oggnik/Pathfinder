@@ -24,11 +24,11 @@ public class PathfinderDijkstraModifiedOutput {
             setMoves();
             dijkstra(graph, start);
             addParentsToPath(end);
-            //for (int r = 0; r < rows; r++) {
-                //for (int c = 0; c < cols; c++)
-                    //System.out.print(maze[r][c]);
-                //System.out.println();
-            //}
+            for (int r = 0; r < rows; r++) {
+                for (int c = 0; c < cols; c++)
+                    System.out.print(maze[r][c]);
+                System.out.println();
+            }
             //Print out the nodes of the path in order
             PrintWriter out = new PrintWriter("output.txt");
             for (Vertex n : path) {
@@ -62,7 +62,7 @@ public class PathfinderDijkstraModifiedOutput {
 	//System.out.println("Maze entered:");
 	for (int r = 0; r < rows; r++) {
 	    m[r] = input.nextLine().replace(",", "").toCharArray();
-	    //System.out.println(m[r]);
+	    System.out.println(m[r]);
 	}
 	maze = m;
     }
@@ -95,9 +95,13 @@ public class PathfinderDijkstraModifiedOutput {
 	}
         //Get start and end coordinates (they must be 0)
         System.out.print("Enter start coordinates in format \"x y\" : ");
-        start = graph.getVertex(new Location(in.nextInt(), in.nextInt()));
+	int c = in.nextInt();
+	int r = in.nextInt();
+        start = graph.getVertex(new Location(r, c));
         System.out.print("Enter end coordinates in format \"x y\" : ");
-        end = graph.getVertex(new Location(in.nextInt(), in.nextInt()));
+	c = in.nextInt();
+	r = in.nextInt();
+        end = graph.getVertex(new Location(r, c));
     }
     
     /**

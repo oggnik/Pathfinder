@@ -31,6 +31,8 @@ public class PathfinderDijkstra {
             //Print out the nodes of the path in order
             for (Vertex n : path) {
                 System.out.println(n);
+                Location loc = (Location) n.getData();
+                System.out.printf("%d %d\n", loc.getCol(), loc.getRow());
             }
         } catch (Exception e) {
             System.err.println("Error!");
